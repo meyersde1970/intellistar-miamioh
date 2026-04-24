@@ -5,7 +5,6 @@ const SINGLE = [{name: "Alert", subpages: [{name: "single-alert-page", duration:
 const MULTIPLE = [{name: "Alerts", subpages: [{name: "multiple-alerts-page", duration: 7000}]},{name: "Now", subpages: [{name: "current-page", duration: 8000}, {name: "radar-page", duration: 8000}, {name: "zoomed-radar-page", duration: 8000}]},{name: "Tonight", subpages: [{name: "tonight-page", duration: 8000}]},{name: "Beyond", subpages: [{name: "tomorrow-page", duration: 8000}, {name: "7day-page", duration: 13000}]},]
 const WEEKDAY = ["SUN",  "MON", "TUES", "WED", "THU", "FRI", "SAT"];
 
-const jingle = new Audio("assets/music/jingle.wav")
 
 const crawlSpeedCasual = 10; // A normal reading pace, in characters per second
 const crawlSpeedFast = 20; // A fast reading pace, in characters per second
@@ -26,7 +25,6 @@ window.onload = function () {
   CONFIG.addOption('crawlText', 'Crawl Text', 'Text that scrolls along the bottom')
   CONFIG.addOption('greetingText', 'Greeting Text', 'Message (or joke) that appears at the start')
   CONFIG.load();
-  preLoadMusic();
   setMainBackground();
   resizeWindow();
   setClockTime();
@@ -50,11 +48,6 @@ function toggleAdvancedSettings(){
     advancedSettingsOptions.classList.add('hidden')
     advancedOptionsText.innerHTML = 'Show advanced options'
   }
-}
-
-function preLoadMusic(){
-  var index = Math.floor(Math.random() * 12) + 1;
-  music = new Audio("assets/music/" + index + ".wav");
 }
 
 /* Set the timeline page order depending on time of day and if
@@ -86,7 +79,6 @@ function revealTimeline(){
 the appropriate elements */
 function setInformation(){
   setGreetingPage();
-  checkStormMusic();
   setAlertPage();
   setForecast();
   setOutlook();
@@ -98,26 +90,15 @@ function setInformation(){
 }
 
 function setMainBackground(){
-  getElement('background-image').style.backgroundImage = 'url(https://picsum.photos/1920/1080/?random';
+  getElement('background-image').style.backgroundImage = 'url(assets/bgs/01.png';
 }
 
-function checkStormMusic(){
-  if(currentCondition.toLowerCase().includes("storm")){
-    music= new Audio("assets/music/storm.wav");
-  }
-}
 
 function startAnimation(){
   setInitialPositionCurrentPage();
-
-  jingle.play();
-  setTimeout(startMusic, 5000)
   executeGreetingPage();
 }
 
-function startMusic(){
-  music.play();
-}
 
 function hideSettings(){
   // Animate settings prompt out
